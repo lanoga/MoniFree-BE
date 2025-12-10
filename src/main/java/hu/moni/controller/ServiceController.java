@@ -36,6 +36,11 @@ public class ServiceController {
         return new ResponseEntity<>(objectMapper.writeValueAsString(serviceResultRepository.findAll()), HttpStatus.OK);
     }
 
+    @GetMapping("/getResultsByFragment")
+    public ResponseEntity<String> getresultsByFragment(@RequestParam("fragment") String fragment) throws JsonProcessingException {
+        return new ResponseEntity<>(objectMapper.writeValueAsString(serviceResultRepository.findAllByFragment(fragment)), HttpStatus.OK);
+    }
+
 
 
 
