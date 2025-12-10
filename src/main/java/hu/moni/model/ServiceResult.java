@@ -20,9 +20,6 @@ public class ServiceResult {
     @Column(name = "service_id")
     private Long serviceId;
 
-    @Column(name = "user_id")
-    private Long userId;
-
     @Column(columnDefinition = "CLOB")
     private String result;
 
@@ -32,6 +29,4 @@ public class ServiceResult {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-    @Column(name = "visualize")
-    private String visualize;
 }

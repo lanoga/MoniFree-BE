@@ -38,11 +38,9 @@ CREATE TABLE service_result (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(255),
     service_id BIGINT,
-    user_id BIGINT,
     result CLOB,
     fragment VARCHAR(255),
-    date_time TIMESTAMP,
-    visualize VARCHAR(255)
+    date_time TIMESTAMP
 );
 
 -- =========================

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.moni.model.Service;
 import hu.moni.repository.ApplicationDataRepository;
 import hu.moni.repository.ServiceRepository;
+import hu.moni.repository.ServiceResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,19 @@ public class ServiceController {
 
     private final ServiceRepository serviceRepository;
     private final ObjectMapper objectMapper;
-    private final ApplicationDataRepository applicationDataRepository;
+    private final ServiceResultRepository serviceResultRepository;
 
     @GetMapping("/findAllByApplicationId")
     public ResponseEntity<String> findAllByApplicationIdId(@RequestParam("applicationId") Long applicationId) throws JsonProcessingException {
         return new ResponseEntity<>(objectMapper.writeValueAsString(serviceRepository.findAllByApplicationId(applicationId)), HttpStatus.OK);
     }
+
+    @GetMapping("/getResults")
+    public ResponseEntity<String> getresults() throws JsonProcessingException {
+        return new ResponseEntity<>(objectMapper.writeValueAsString(serviceResultRepository.findAll()), HttpStatus.OK);
+    }
+
+
 
 
 
