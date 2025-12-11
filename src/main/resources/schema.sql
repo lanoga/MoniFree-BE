@@ -1,16 +1,16 @@
-DROP TABLE IF EXISTS service_log;
-DROP TABLE IF EXISTS service;
-DROP TABLE IF EXISTS service_result;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS user_log;
-DROP TABLE IF EXISTS application_data;
-DROP TABLE IF EXISTS monitor_endpoint;
-DROP TABLE IF EXISTS dashboard;
+--DROP TABLE IF EXISTS service_log;
+--DROP TABLE IF EXISTS service;
+--DROP TABLE IF EXISTS service_result;
+--DROP TABLE IF EXISTS users;
+--DROP TABLE IF EXISTS user_log;
+--DROP TABLE IF EXISTS application_data;
+--DROP TABLE IF EXISTS monitor_endpoint;
+--DROP TABLE IF EXISTS dashboard;
 
 -- =========================
 -- SERVICE LOG
 -- =========================
-CREATE TABLE service_log (
+CREATE TABLE if not exists service_log (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(255),
     date_time TIMESTAMP,
@@ -21,7 +21,7 @@ CREATE TABLE service_log (
 -- =========================
 -- SERVICE REQUEST
 -- =========================
-CREATE TABLE service (
+CREATE TABLE if not exists service (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     server_url VARCHAR(500),
     fragment VARCHAR(255),
@@ -34,7 +34,7 @@ CREATE TABLE service (
 -- =========================
 -- SERVICE RESULT
 -- =========================
-CREATE TABLE service_result (
+CREATE TABLE if not exists service_result (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(255),
     service_id BIGINT,
@@ -46,7 +46,7 @@ CREATE TABLE service_result (
 -- =========================
 -- USERS
 -- =========================
-CREATE TABLE users (
+CREATE TABLE if not exists users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE,
     first_name VARCHAR(255),
@@ -60,20 +60,20 @@ CREATE TABLE users (
 -- =========================
 -- USER LOG
 -- =========================
-CREATE TABLE user_log (
+CREATE TABLE if not exists user_log (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255),
     date_time TIMESTAMP
 );
 
-CREATE TABLE monitor_endpoint (
+CREATE TABLE if not exists monitor_endpoint (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     fragment VARCHAR(100),
     interval_sec INTEGER,
     application_id INTEGER
 );
 
-CREATE TABLE application_data (
+CREATE TABLE if not exists application_data (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) UNIQUE,
     url VARCHAR(500),
@@ -81,7 +81,7 @@ CREATE TABLE application_data (
     auth_password VARCHAR(255)
 );
 
-CREATE TABLE dashboard (
+CREATE TABLE if not exists dashboard (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     application_id BIGINT NOT NULL,
     fragment VARCHAR(255),

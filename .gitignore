@@ -36,4 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
-users.json
+data/monidb.mv.db
+data/monidb.trace.db

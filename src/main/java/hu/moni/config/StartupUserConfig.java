@@ -38,24 +38,47 @@ public class StartupUserConfig {
     CommandLineRunner createAdminUserAndMediciApp() {
         return args -> {
 
-            loadOrInitializeUsersJson();
+            if (userRepository.count() > 0) {
+                System.out.println("Startup init skipped — existing database detected.");
+                return;  // semmit nem töltünk újra
+            }
 
-            ApplicationData mediciApp = applicationDataRepository.findByName("MEDICI")
-                    .orElseGet(() -> {
+            System.out.println("No users found → initializing default data...");
 
-                        ApplicationData app = new ApplicationData();
-                        app.setName("MEDICI");
-                        app.setUrl("http://localhost:8080");
-                        app.setUser("admin");
-                        app.setPass("makoslecso2025");
-
-                        applicationDataRepository.save(app);
-                        System.out.println("MEDICI application created.");
-                        return app;
-                    });
 
             // =====================================================
-            // 3. MONITOR ENDPOINTOK LÉTREHOZÁSA A MEDICI-HEZ
+            // 1. ADMIN USER LÉTREHOZÁS
+            // =====================================================
+            String adminEmail = "admin@admin.com";
+
+            User admin = new User();
+            admin.setEmail(adminEmail);
+            admin.setFirstName("System");
+            admin.setFamilyName("Admin");
+            admin.setRole(Role.ADMIN);
+            admin.setPassword(passwordEncoder.encode("test1234"));
+            admin.setTwoFactorEnabled(false);
+
+            userRepository.save(admin);
+            System.out.println("Default ADMIN user created.");
+
+
+            // =====================================================
+            // 2. MEDICI APPLICATIONDATA LÉTREHOZÁSA
+            // =====================================================
+            ApplicationData mediciApp = new ApplicationData();
+            mediciApp.setName("MEDICI");
+            mediciApp.setUrl("http://localhost:8080");
+            mediciApp.setUser("admin");
+            mediciApp.setPass("makoslecso2025");
+
+            applicationDataRepository.save(mediciApp);
+
+            System.out.println("MEDICI application created.");
+
+
+            // =====================================================
+            // 3. MONITOR ENDPOINTOK LÉTREHOZÁSA
             // =====================================================
             createEndpointIfNotExists(mediciApp, "MEMORY", 60, "Memory usage");
             createEndpointIfNotExists(mediciApp, "CPU", 120, "CPU usage");
@@ -64,7 +87,7 @@ public class StartupUserConfig {
             createEndpointIfNotExists(mediciApp, "THREADS", 120, "Threads");
             createEndpointIfNotExists(mediciApp, "DBCONN", 60, "DB Connections");
 
-            System.out.println(" MEDICI monitor endpoints startup init finished.");
+            System.out.println("Default startup data initialization finished.");
         };
     }
 
