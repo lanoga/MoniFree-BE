@@ -38,7 +38,11 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/moni/login",
                                 "/moni/login/**",
+                                "/moni/login/setup2fa",
+                                "/moni/2fa/setup",
+                                "/moni/2fa/setup/**",
                                 "/h2-console/**"
                         ).permitAll()
                         .anyRequest().authenticated()

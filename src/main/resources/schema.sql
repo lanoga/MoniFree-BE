@@ -52,7 +52,9 @@ CREATE TABLE users (
     first_name VARCHAR(255),
     family_name VARCHAR(255),
     role VARCHAR(50),
-    password VARCHAR(255)
+    password VARCHAR(255),
+    totp_secret VARCHAR(255),
+    two_factor_enabled boolean
 );
 
 -- =========================

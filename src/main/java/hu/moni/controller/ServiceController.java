@@ -3,8 +3,8 @@ package hu.moni.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.moni.model.Service;
-import hu.moni.repository.ApplicationDataRepository;
+import hu.moni.model.ServiceResult;
+import hu.moni.model.dto.ServiceResultDto;
 import hu.moni.repository.ServiceRepository;
 import hu.moni.repository.ServiceResultRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,16 +33,52 @@ public class ServiceController {
 
     @GetMapping("/getResults")
     public ResponseEntity<String> getresults() throws JsonProcessingException {
-        return new ResponseEntity<>(objectMapper.writeValueAsString(serviceResultRepository.findAll()), HttpStatus.OK);
+        List<ServiceResult> results = serviceResultRepository.findAll();
+
+        List<ServiceResultDto> dtoList = results.stream().map(r -> {
+            Object resultJson = parseJsonSafely(r.getResult());
+            return new ServiceResultDto(
+                    r.getId(),
+                    r.getServiceName(),
+                    r.getServiceId(),
+                    resultJson,
+                    r.getFragment(),
+                    r.getDateTime()
+            );
+        }).toList();
+
+        String result = objectMapper.writeValueAsString(dtoList);
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/getResultsByFragment")
     public ResponseEntity<String> getresultsByFragment(@RequestParam("fragment") String fragment) throws JsonProcessingException {
-        return new ResponseEntity<>(objectMapper.writeValueAsString(serviceResultRepository.findAllByFragment(fragment)), HttpStatus.OK);
+        List<ServiceResult> results = serviceResultRepository.findAllByFragment(fragment);
+
+        List<ServiceResultDto> dtoList = results.stream().map(r -> {
+            Object resultJson = parseJsonSafely(r.getResult());
+            return new ServiceResultDto(
+                    r.getId(),
+                    r.getServiceName(),
+                    r.getServiceId(),
+                    resultJson,
+                    r.getFragment(),
+                    r.getDateTime()
+            );
+        }).toList();
+
+        String result = objectMapper.writeValueAsString(dtoList);
+
+        return ResponseEntity.ok(result);
     }
 
-
-
-
+    private Object parseJsonSafely(String json) {
+        try {
+            return objectMapper.readValue(json, Object.class);
+        } catch (Exception e) {
+            return json;
+        }
+    }
 
 }

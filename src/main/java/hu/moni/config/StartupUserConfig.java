@@ -39,11 +39,12 @@ public class StartupUserConfig {
                 admin.setFamilyName("Admin");
                 admin.setRole(Role.ADMIN);
                 admin.setPassword(passwordEncoder.encode("test1234"));
+                admin.setTwoFactorEnabled(false);
 
                 userRepository.save(admin);
-                System.out.println("✅ Default ADMIN user created.");
+                System.out.println("Default ADMIN user created.");
             } else {
-                System.out.println("ℹ️ Default ADMIN user already exists.");
+                System.out.println("Default ADMIN user already exists.");
             }
 
             // =====================================================

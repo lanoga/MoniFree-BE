@@ -35,12 +35,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        /*String path = request.getRequestURI();
-        if (path.startsWith("/h2-console") || path.startsWith("/moni/login")) {
-            filterChain.doFilter(request, response);
-            return;
-        }*/
-
         String header = request.getHeader("Authorization");
 
         if (header != null && header.startsWith("Bearer ")) {

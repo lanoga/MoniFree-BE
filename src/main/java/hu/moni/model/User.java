@@ -27,5 +27,14 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+
+    @Column(name = "totp_secret")
+    private String totpSecret;
+
+
+    @Column(name = "two_factor_enabled")
+    private boolean twoFactorEnabled;
+
 }
 
