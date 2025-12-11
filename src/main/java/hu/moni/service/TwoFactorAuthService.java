@@ -1,4 +1,4 @@
-package hu.moni.config;
+package hu.moni.service;
 
 import dev.samstevens.totp.code.CodeGenerator;
 import dev.samstevens.totp.code.CodeVerifier;

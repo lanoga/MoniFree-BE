@@ -2,7 +2,9 @@ package hu.moni.controller;
 
 import hu.moni.model.User;
 import hu.moni.repository.UserRepository;
+import hu.moni.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,32 +14,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository repo;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping
     public User save(@RequestBody User user) {
-        return repo.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userService.save(user);
     }
 
     @GetMapping
     public List<User> findAll() {
-        return repo.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public User findById(@PathVariable Long id) {
-        return repo.findById(id).orElseThrow();
+        return userService.findById(id).orElseThrow();
     }
 
     @PutMapping("/{id}")
     public User update(@PathVariable Long id, @RequestBody User user) {
         user.setId(id);
-        return repo.save(user);
+        return userService.save(user);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        repo.deleteById(id);
+        userService.delete(id);
     }
 }
 

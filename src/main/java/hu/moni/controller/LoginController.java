@@ -1,7 +1,7 @@
 package hu.moni.controller;
 
 import hu.moni.config.JwtService;
-import hu.moni.config.TwoFactorAuthService;
+import hu.moni.service.TwoFactorAuthService;
 import hu.moni.model.User;
 import hu.moni.model.dto.AuthRequest;
 import hu.moni.model.dto.LoginResponse;

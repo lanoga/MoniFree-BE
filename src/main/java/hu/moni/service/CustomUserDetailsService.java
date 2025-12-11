@@ -1,4 +1,4 @@
-package hu.moni.config;
+package hu.moni.service;
 
 import hu.moni.model.User;
 import hu.moni.repository.UserRepository;
