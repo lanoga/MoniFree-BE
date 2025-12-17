@@ -33,6 +33,7 @@ public class HomeController {
             ret.add(new MenuItem(2L, "Services", "/moni/services", "fas fa-shield-alt"));
             ret.add(new MenuItem(3L, "Logs", "/moni/logs", "fas fa-shield-alt"));
             ret.add(new MenuItem(4L, "Users", "/moni/user", "fas fa-shield-alt"));
+            ret.add(new MenuItem(5L, "Applications", "/moni/applications", "fas fa-shield-alt"));
 
             resultJson = objectMapper.writeValueAsString(ret);
             return new ResponseEntity<>(resultJson, HttpStatus.OK);

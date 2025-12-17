@@ -29,20 +29,18 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable Long id) {
+    public User findById(@PathVariable("id") Long id) {
         return userService.findById(id).orElseThrow();
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable Long id, @RequestBody User user) {
+    public User update(@PathVariable("id") Long id, @RequestBody User user) {
         user.setId(id);
         return userService.save(user);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         userService.delete(id);
     }
 }
-
-//TODO: összes app lekérés, applicationhoz tartozó szervizek, összes , dashbosard crud - nem kell szűrés

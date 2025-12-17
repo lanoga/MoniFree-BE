@@ -32,7 +32,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/{id}")
-    public ApplicationData findById(@PathVariable Long id) {
+    public ApplicationData findById(@PathVariable("id") Long id) {
         return applicationDataRepository.findById(id).orElseThrow();
     }
 
@@ -42,7 +42,7 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         applicationDataRepository.deleteById(id);
     }
 }

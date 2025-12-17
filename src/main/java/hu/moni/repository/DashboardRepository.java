@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface DashboardRepository extends JpaRepository<Dashboard, Long> {
     List<Dashboard> findByApplicationId(Long applicationId);
+    List<Dashboard> findByApplicationIdAndFragment(
+            Long applicationId,
+            String fragment
+    );
 }
